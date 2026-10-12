@@ -140,7 +140,7 @@ details.adv{grid-column:1/-1}details.adv summary{cursor:pointer;color:var(--mu);
 .chart .grid{stroke:var(--line);stroke-width:1}
 /* ajustes */
 .ls{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:16px}.ol{display:flex;gap:8px;align-items:center;margin-bottom:8px}.ol input[type=text]{flex:1}.ol input[type=number]{width:84px}.sw1{width:30px;height:30px;border-radius:9px;border:2px solid var(--line2);flex:none;padding:0}
-.pal{display:grid;grid-template-columns:repeat(5,28px);gap:6px;padding:8px}.pal button{width:28px;height:28px;border-radius:8px;border:2px solid transparent}.pal button:hover{border-color:var(--tx)}
+.pal{display:grid;grid-template-columns:repeat(6,28px);gap:6px;padding:8px}.pal button{width:28px;height:28px;border-radius:8px;border:2px solid transparent}.pal button:hover{border-color:var(--tx)}
 .grp{display:flex;gap:10px;flex-wrap:wrap}
 @media(max-width:1100px){.hero,.split,.ctl{grid-template-columns:1fr}.wk{grid-template-columns:repeat(2,minmax(0,1fr))}.stats{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:820px){.shell{grid-template-columns:1fr}.rail{position:fixed;top:auto;bottom:0;left:0;right:0;height:auto;flex-direction:row;padding:6px 8px calc(6px + env(safe-area-inset-bottom));z-index:40;border-right:0;border-top:1px solid var(--line);background:var(--bg2)}.rail nav{flex-direction:row;flex:1;justify-content:space-around}.brand,.rail-foot .kbd,.nv span{display:none}.nv{justify-content:center;padding:10px;width:auto}.rail-foot{margin:0;padding:0}.main{padding:18px 14px 96px}.top h1{font-size:26px}.fg{grid-template-columns:1fr}.tools input[type=search],.tools input[type=text]{width:100%}.wk{grid-template-columns:1fr}.dc{min-height:64px;padding:4px}.dc .lb{font-size:10px}.mh h2{min-width:0;font-size:18px}.charts{grid-template-columns:1fr}}
@@ -161,7 +161,7 @@ details.adv{grid-column:1/-1}details.adv summary{cursor:pointer;color:var(--mu);
 .madd{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}.madd input{flex:1;min-width:180px}
 .mdone{text-align:center;padding:26px;color:var(--mu)}.mdone b{display:block;color:var(--accent);font-size:20px;margin-bottom:4px}
 .login{min-height:100vh;display:grid;place-items:center;padding:24px}.login .card{max-width:430px;width:100%;text-align:center;padding:34px}.login img{width:84px;height:84px;border-radius:22px;margin-bottom:18px;box-shadow:0 0 0 1px var(--line)}
-.sy{font-size:12.5px;color:var(--mu);display:inline-flex;gap:7px;align-items:center;margin-right:12px}.sy i{width:8px;height:8px;border-radius:50%;background:#43b36b}.sy.saving i{background:#f1b928}.sy.off i{background:#8b8590}.sy.ro i{background:#4a90f0}
+.sy{font-size:12.5px;color:var(--mu);display:inline-flex;gap:7px;align-items:center;margin-right:12px}.sy i{width:8px;height:8px;border-radius:50%;background:#72c76a}.sy.saving i{background:#f5d04c}.sy.off i{background:#8b8590}.sy.ro i{background:#72b7f2}
 @media(max-width:820px){.sy .sytx{display:none}}
 @media(max-width:820px){input,select,textarea{font-size:16px}.toast{bottom:86px}}
 </style></head>
@@ -192,30 +192,38 @@ const nn=v=>v===''||v==null||isNaN(+v)?'':+v;
 
 /* ============ datos ============ */
 const KEY='juanhq.v1';
-const PAL={Mauve:'#a56bc9',Lavender:'#7f78e8',Camellia:'#f0587d',Papaya:'#f58a3b',Mango:'#f1b928',Olive:'#9bb73a',Grass:'#43b36b',Jade:'#25b8a5',Azure:'#4a90f0',Iron:'#8b8590'};
-const P=c=>PAL[c]||c||'#8b8590';
+const PAL={'Lila':'#c5a0e8','Carmesí':'#d62839','Verde':'#72c76a','Cielo':'#72b7f2','Naranja':'#f59a50','Turquesa':'#45d0b5','Amarillo':'#f5d04c','Rosa':'#f47fa1','Índigo':'#4545d6','Magenta':'#d92ead','Gris':'#8b8590','Marrón':'#8c564b'};
+const OLD={Mauve:'Magenta',Lavender:'Lila',Camellia:'Carmesí',Papaya:'Naranja',Mango:'Amarillo',Olive:'Verde',Grass:'Verde',Jade:'Turquesa',Azure:'Cielo',Iron:'Gris'};
+const OLDHEX={'#a56bc9':'Magenta','#7f78e8':'Lila','#f0587d':'Carmesí','#f58a3b':'Naranja','#f1b928':'Amarillo','#9bb73a':'Verde','#43b36b':'Verde','#25b8a5':'Turquesa','#4a90f0':'Cielo','#8b8590':'Gris'};
+const P=c=>PAL[c]||PAL[OLD[c]]||c||'#8b8590';
 const DEF_OPT=()=>({
- asignatura:[{n:'Acceso a datos',c:'Azure'},{n:'Itinerario personal',c:'Lavender'},{n:'Desarrollo de interfaces',c:'Camellia'},{n:'Programación de apps con frameworks',c:'Grass'},{n:'Sistemas de gestión empresarial',c:'Papaya'},{n:'Proyecto intermodular',c:'Mauve'},{n:'Programación de servicios y procesos',c:'Mango'},{n:'Programación multimedia y disp. móviles',c:'Jade'}],
- tipo:[{n:'Examen',c:'Camellia',ev:1},{n:'Recuperación',c:'Papaya',ev:1},{n:'Práctica',c:'Lavender',ev:1},{n:'Exposición',c:'Mango',ev:1},{n:'Trabajo',c:'Azure',ev:1},{n:'Tarea',c:'Iron'},{n:'Estudio',c:'Jade'}],
- prioridad:[{n:'Máxima',c:'Camellia'},{n:'Alta',c:'Papaya'},{n:'Media',c:'Mango'},{n:'Baja',c:'Grass'}],
- estado:[{n:'Por hacer',c:'Iron',p:1},{n:'En proceso',c:'Azure',p:1},{n:'Hecho',c:'Grass'},{n:'Sin calificar',c:'Mango'},{n:'Calificado',c:'Jade'}],
- resultado:[{n:'Apto',c:'Grass'},{n:'No apto',c:'Camellia'},{n:'No presentado',c:'Iron'}],
- categoria:[{n:'Festivo',c:'Camellia'},{n:'No lectivo / Puente',c:'Papaya'},{n:'Vacaciones',c:'Azure'},{n:'Evaluación',c:'Mango'},{n:'Exámenes',c:'Lavender'},{n:'Inicio / fin de curso',c:'Grass'},{n:'FCT / Prácticas',c:'Jade'},{n:'Otro',c:'Olive'}],
- distancia:[{n:'5K',c:'Azure',km:5},{n:'10K',c:'Grass',km:10},{n:'15K',c:'Jade',km:15},{n:'Media maratón',c:'Mango',km:21.0975},{n:'Maratón',c:'Camellia',km:42.195},{n:'Otra',c:'Iron',km:0}],
- prioCarrera:[{n:'A',c:'Camellia'},{n:'B',c:'Mango'},{n:'C',c:'Grass'}],
- sesion:[{n:'Descanso',c:'Iron'},{n:'Rodaje suave',c:'Grass'},{n:'Series',c:'Camellia'},{n:'Tempo/Umbral',c:'Papaya'},{n:'Tirada larga',c:'Azure'},{n:'Fartlek',c:'Mango'},{n:'Cuestas',c:'Olive'},{n:'Fuerza',c:'Lavender'},{n:'Movilidad/Técnica',c:'Jade'},{n:'Competición',c:'Mauve'}],
- mochila:[{n:'Imprescindible',c:'Camellia'},{n:'Temporada',c:'Azure'},{n:'Opcional',c:'Mango',i:1}],
- cat24:[{n:'Dormir',c:'Azure'},{n:'Siesta',c:'Jade'},{n:'Rutina',c:'Iron'},{n:'Comida',c:'Papaya'},{n:'Trayecto',c:'Olive'},{n:'Clase',c:'Camellia'},{n:'Estudio',c:'Lavender'},{n:'Entreno',c:'Grass'},{n:'Ocio',c:'Mango'},{n:'Social',c:'Mauve'}]
+ asignatura:[{n:'Acceso a datos',c:'Cielo'},{n:'Itinerario personal',c:'Amarillo'},{n:'Desarrollo de interfaces',c:'Verde'},{n:'Programación de apps con frameworks',c:'Rosa'},{n:'Sistemas de gestión empresarial',c:'Naranja'},{n:'Proyecto intermodular',c:'Turquesa'},{n:'Programación de servicios y procesos',c:'Lila'},{n:'Programación multimedia y disp. móviles',c:'Carmesí'}],
+ tipo:[{n:'Examen',c:'Carmesí',ev:1},{n:'Recuperación',c:'Magenta',ev:1},{n:'Práctica',c:'Índigo',ev:1},{n:'Exposición',c:'Naranja',ev:1},{n:'Trabajo',c:'Cielo',ev:1},{n:'Tarea',c:'Gris'},{n:'Estudio',c:'Turquesa'}],
+ prioridad:[{n:'Máxima',c:'Carmesí'},{n:'Alta',c:'Naranja'},{n:'Media',c:'Amarillo'},{n:'Baja',c:'Verde'}],
+ estado:[{n:'Por hacer',c:'Gris',p:1},{n:'En proceso',c:'Cielo',p:1},{n:'Hecho',c:'Verde'},{n:'Sin calificar',c:'Amarillo'},{n:'Calificado',c:'Turquesa'}],
+ resultado:[{n:'Apto',c:'Verde'},{n:'No apto',c:'Carmesí'},{n:'No presentado',c:'Gris'}],
+ categoria:[{n:'Festivo',c:'Carmesí'},{n:'Festivo local',c:'Rosa'},{n:'No lectivo / Puente',c:'Naranja'},{n:'Vacaciones',c:'Cielo'},{n:'Evaluación',c:'Amarillo'},{n:'Exámenes',c:'Lila'},{n:'Inicio / fin de curso',c:'Verde'},{n:'FCT / Prácticas',c:'Turquesa'},{n:'Otro',c:'Marrón'}],
+ distancia:[{n:'5K',c:'Cielo',km:5},{n:'10K',c:'Verde',km:10},{n:'15K',c:'Turquesa',km:15},{n:'Media maratón',c:'Amarillo',km:21.0975},{n:'Maratón',c:'Carmesí',km:42.195},{n:'Otra',c:'Gris',km:0}],
+ prioCarrera:[{n:'A',c:'Carmesí'},{n:'B',c:'Amarillo'},{n:'C',c:'Verde'}],
+ sesion:[{n:'Descanso',c:'Gris'},{n:'Rodaje suave',c:'Verde'},{n:'Rodaje progresivo',c:'Índigo'},{n:'Series',c:'Carmesí'},{n:'Tempo/Umbral',c:'Naranja'},{n:'Tirada larga',c:'Cielo'},{n:'Fartlek',c:'Amarillo'},{n:'Cuestas',c:'Marrón'},{n:'Fuerza',c:'Lila'},{n:'Movilidad/Técnica',c:'Turquesa'},{n:'Cross-training',c:'Rosa'},{n:'Competición',c:'Magenta'}],
+ mochila:[{n:'Imprescindible',c:'Carmesí'},{n:'Temporada',c:'Cielo'},{n:'Opcional',c:'Amarillo',i:1}],
+ cat24:[{n:'Dormir',c:'Índigo'},{n:'Siesta',c:'Cielo'},{n:'Rutina',c:'Gris'},{n:'Comida',c:'Naranja'},{n:'Trayecto',c:'Marrón'},{n:'Clase',c:'Carmesí'},{n:'Estudio',c:'Lila'},{n:'Entreno',c:'Verde'},{n:'Ocio',c:'Amarillo'},{n:'Social',c:'Rosa'},{n:'Fisio y estiramientos',c:'Turquesa'},{n:'Recados y casa',c:'Magenta'}]
 });
+const NUEVAS_V2={cat24:['Fisio y estiramientos','Recados y casa'],sesion:['Rodaje progresivo','Cross-training'],categoria:['Festivo local']};
+function migrarV2(o){const D=DEF_OPT(),vieja=x=>!!(OLD[x]||OLDHEX[String(x).toLowerCase()]);
+ Object.keys(D).forEach(k=>{if(!o.opc[k])o.opc[k]=D[k];const L=o.opc[k];
+  L.forEach(op=>{const def=D[k].find(x=>x.n===op.n);if(k==='asignatura'&&def){op.c=def.c;return}if(vieja(op.c))op.c=def?def.c:(OLD[op.c]||OLDHEX[String(op.c).toLowerCase()])});
+  (NUEVAS_V2[k]||[]).forEach(n=>{if(!L.some(x=>x.n===n))L.push({...D[k].find(x=>x.n===n)})})});
+ o.v=2;return o}
 const DEF_MOCH=()=>{const m=l=>l.map(([t,tp],i)=>({id:'m'+i+uid(),t,tipo:tp,on:false}));return{
  carreras:{lock:true,items:m([['Dorsal y DNI','Imprescindible'],['Zapatillas de competición','Imprescindible'],['Camiseta y pantalón de carrera','Imprescindible'],['Calcetines','Imprescindible'],['Reloj GPS cargado','Imprescindible'],['Geles / avituallamiento','Imprescindible'],['Imperdibles','Imprescindible'],['Vaselina antirozaduras','Imprescindible'],['Agua o bebida isotónica','Imprescindible'],['Ropa de cambio y toalla','Imprescindible'],['Gorra o visera','Temporada'],['Guantes','Temporada'],['Cortavientos','Temporada'],['Chubasquero','Temporada'],['Chanclas','Opcional'],['Auriculares','Opcional']])},
  clase:{lock:true,items:m([['Portátil','Imprescindible'],['Cargador del portátil','Imprescindible'],['Libreta y estuche','Imprescindible'],['Llaves y cartera','Imprescindible'],['Botella de agua','Imprescindible'],['Almuerzo','Imprescindible'],['Pendrive','Opcional'],['Auriculares','Opcional'],['Chaqueta','Temporada'],['Paraguas','Temporada']])}}};
 const LISTAS={asignatura:'Asignaturas',tipo:'Tipos de tarea',prioridad:'Prioridad',estado:'Estado',resultado:'Resultado',categoria:'Calendario escolar',distancia:'Distancias',prioCarrera:'Prioridad de carrera',sesion:'Sesiones de running',cat24:'Horario 24h',mochila:'Mochila: tipos'};
-const DEF=()=>({v:1,aj:{nombre:'Juan',tema:'dark',acento:'#fa4e50',paso:30},ui:{},opc:DEF_OPT(),
+const DEF=()=>({v:2,aj:{nombre:'Juan',tema:'dark',acento:'#fa4e50',paso:30},ui:{},opc:DEF_OPT(),
  tareas:[],eventos:[],asig:{},clases:{cfg:{inicio:'08:30',dur:55,n:6,rec:3,recMin:30},c:{}},
  h24:Array.from({length:7},()=>Array(96).fill('')),mochilas:DEF_MOCH(),plan:[],carreras:[],control:[]});
 let S=cargar();
-function normalizar(r){const d=DEF();return{...d,...r,aj:{...d.aj,...r.aj},opc:{...d.opc,...r.opc},clases:{...d.clases,...r.clases,cfg:{...d.clases.cfg,...(r.clases||{}).cfg}}}}
+function normalizar(r){const d=DEF();const o={...d,...r,aj:{...d.aj,...r.aj},opc:{...d.opc,...r.opc},clases:{...d.clases,...r.clases,cfg:{...d.clases.cfg,...(r.clases||{}).cfg}}};if((r.v||1)<2){o.opc=JSON.parse(JSON.stringify(o.opc));migrarV2(o);window.__migrado=true}return o}
 function cargar(){try{const r=JSON.parse(localStorage.getItem(KEY)||'null');return r?normalizar(r):DEF()}catch(e){return DEF()}}
 let _st;function save(){clearTimeout(_st);_st=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){toast('No se pudo guardar: '+e.message)}if(typeof syncPush==='function')syncPush()},120)}
 window.addEventListener('pagehide',()=>{clearTimeout(_st);try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}if(typeof syncFlush==='function')syncFlush()});document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){clearTimeout(_st);try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}if(typeof syncFlush==='function')syncFlush()}});
@@ -393,7 +401,7 @@ VIEWS.estudios=()=>R.tab==='asignaturas'?asignaturasUI():(R.tab==='evaluaciones'
 /* ============ HORARIOS ============ */
 U.brush={clases:'',h24:''};
 const claseRows=()=>{const c=S.clases.cfg;let t=toMin(c.inicio);const rows=[];for(let i=0;i<c.n;i++){if(i===+c.rec&&+c.recMin>0){rows.push({k:'rec',a:t,b:t+ +c.recMin});t+=+c.recMin}rows.push({k:'c',i,a:t,b:t+ +c.dur});t+=+c.dur}return rows};
-const clsColor=v=>v==='Libre'?P('Iron'):colOf('asignatura',v);
+const clsColor=v=>v==='Libre'?P('Gris'):colOf('asignatura',v);
 const sgColor=(sg,v)=>sg==='clases'?clsColor(v):colOf('cat24',v);
 function sgSet(sg,i,j,v){if(sg==='clases'){const r=claseRows()[i];if(r&&r.k==='c')S.clases.c[`${r.i}_${j}`]=v}else{const spr=S.aj.paso/15;for(let k=0;k<spr;k++)S.h24[j][i*spr+k]=v}}
 function bloques24(d){const s=S.h24[d],out=[];let i=0;while(i<96){const v=s[i];let k=i;while(k+1<96&&s[k+1]===v)k++;if(v)out.push({n:v,a:i*15,b:(k+1)*15});i=k+1}return out}
@@ -411,7 +419,7 @@ function schedHTML({sg,cols,rows,val,rowH,s24,todayCol,nowFrac}){
 function brushBar(sg,key,extra=[]){const cur=U.brush[sg];return `<div class="brush"><span class="sm mut">Pincel:</span>${[...opts(key),...extra].map(o=>`<button class="chip pick${cur===o.n?' on':''}" style="--c:${P(o.c)}" data-act="brush" data-sg="${sg}" data-v="${esc(o.n)}">${esc(o.n)}</button>`).join('')}<button class="chip pick${cur==='__erase'?' on':''}" data-act="brush" data-sg="${sg}" data-v="__erase">Borrar</button>${cur?`<button class="btn ghost sm" data-act="brush" data-sg="${sg}" data-v="">Soltar pincel</button>`:''}<span class="xs mut" style="margin-left:auto">${cur?'Pinta arrastrando sobre el horario':'Toca una casilla para elegir, o coge un pincel y pinta'}</span></div>`}
 ACT.brush=b=>{const sg=b.dataset.sg;U.brush[sg]=U.brush[sg]===b.dataset.v?'':b.dataset.v;refresh()};
 ACT.cell=b=>{const sg=b.closest('.sg').dataset.sg;if(U.brush[sg])return;const i=+b.dataset.i,j=+b.dataset.j;const cur=sg==='clases'?(S.clases.c[`${claseRows()[i].i}_${j}`]||''):S.h24[j][i*S.aj.paso/15];
- pick(b,sg==='clases'?'asignatura':'cat24',cur,v=>{sgSet(sg,i,j,v);save();refresh()},sg==='clases'?[{n:'Libre',c:'Iron'}]:[])};
+ pick(b,sg==='clases'?'asignatura':'cat24',cur,v=>{sgSet(sg,i,j,v);save();refresh()},sg==='clases'?[{n:'Libre',c:'Gris'}]:[])};
 let paint=null;
 function sgPaint(c){const {sg,b}=paint,i=+c.dataset.i,j=+c.dataset.j,v=b==='__erase'?'':b;sgSet(sg,i,j,v);c.style.setProperty('--c',v?sgColor(sg,v):'transparent');c.classList.toggle('v',!!v)}
 document.addEventListener('mousedown',e=>{const c=e.target.closest&&e.target.closest('.sg .cell');if(!c||e.button)return;const sg=c.closest('.sg').dataset.sg,b=U.brush[sg];if(!b)return;e.preventDefault();paint={sg,b};sgPaint(c)});
@@ -419,7 +427,7 @@ document.addEventListener('mouseover',e=>{if(!paint||!(e.buttons&1))return;const
 document.addEventListener('mouseup',()=>{if(paint){paint=null;save();refresh()}});
 
 function horarioClases(){const rows=claseRows().map(r=>r.k==='rec'?{k:'rec',txt:`Recreo · ${hm(r.a)}–${hm(r.b)}`}:{k:'c',i:r.i,label:hm(r.a),sub:'– '+hm(r.b)});
- const d=diaHoy();return brushBar('clases','asignatura',[{n:'Libre',c:'Iron'}])+`<div class="sgw">${schedHTML({sg:'clases',cols:DIAS.slice(0,5),rows,val:(i,j)=>S.clases.c[`${rows[i].i}_${j}`],rowH:66,s24:false,todayCol:d<5?d:-1})}</div><p class="xs mut" style="margin-top:12px">Las clases seguidas de la misma asignatura se unen hacia abajo. Cambia la hora de inicio, la duración y el recreo en Ajustes.</p>`}
+ const d=diaHoy();return brushBar('clases','asignatura',[{n:'Libre',c:'Gris'}])+`<div class="sgw">${schedHTML({sg:'clases',cols:DIAS.slice(0,5),rows,val:(i,j)=>S.clases.c[`${rows[i].i}_${j}`],rowH:66,s24:false,todayCol:d<5?d:-1})}</div><p class="xs mut" style="margin-top:12px">Las clases seguidas de la misma asignatura se unen hacia abajo. Cambia la hora de inicio, la duración y el recreo en Ajustes.</p>`}
 function horario24(){const paso=S.aj.paso,n=1440/paso,spr=paso/15,rowH=paso===15?18:paso===30?28:46;
  const rows=Array.from({length:n},(_,i)=>({k:'c',i,label:(i*paso)%30===0?hm(i*paso):''}));
  const d=diaHoy(),nowFrac=MIN_AHORA()/1440;
@@ -511,7 +519,7 @@ function carrerasTabla(){const L=carrerasFiltradas(),inf=infoCarreras();
  if(!L.length)return `<div class="empty"><b>${S.carreras.length?'Ninguna carrera coincide':'Aún no hay carreras'}</b>${S.carreras.length?'Prueba con otro filtro o borra la búsqueda.':'Apunta la primera con “Nueva carrera”.'}</div>`;
  const th=(k,l)=>`<th class="s" data-act="csort" data-k="${k}">${l}${U.car.k===k?(U.car.d>0?' ↑':' ↓'):''}</th>`;
  return `<div class="tbl"><table><thead><tr><th class="rt">#</th>${th('nombre','Carrera')}${th('distancia','Distancia')}<th>Homolog.</th>${th('fecha','Fecha')}<th>Lugar</th>${th('prioridad','Prioridad')}${th('marca','Marca')}<th>Ritmo</th><th title="Puesto entre todas tus carreras de esa distancia">Puesto hist.</th><th>Pos.</th><th>Cat.</th><th>FC</th><th>Notas</th></tr></thead><tbody>${L.map((c,i)=>{const s=secC(c),k=kmDe(c),d=c.fecha?`${fES(c.fecha)}${c.fecha.length>10&&c.fecha.slice(11,16)!=='00:00'?' '+c.fecha.slice(11,16):''}`:'';
-  return `<tr class="r" data-act="cedit" data-id="${c.id}"><td class="rt mut num">${i+1}</td><td style="min-width:170px"><b>${esc(c.nombre)}</b></td><td>${chip('distancia',c.distancia)}</td><td>${c.homologada?'<span class="chip" style="--c:#43b36b">Sí</span>':'<span class="mut xs">No *</span>'}</td><td class="num" style="white-space:nowrap">${d}</td><td>${esc(c.lugar)}</td><td>${chip('prioCarrera',c.prioridad)}</td>
+  return `<tr class="r" data-act="cedit" data-id="${c.id}"><td class="rt mut num">${i+1}</td><td style="min-width:170px"><b>${esc(c.nombre)}</b></td><td>${chip('distancia',c.distancia)}</td><td>${c.homologada?'<span class="chip" style="--c:#72c76a">Sí</span>':'<span class="mut xs">No *</span>'}</td><td class="num" style="white-space:nowrap">${d}</td><td>${esc(c.lugar)}</td><td>${chip('prioCarrera',c.prioridad)}</td>
   <td class="num" style="white-space:nowrap"><b>${esc(c.marca)}</b>${c.marca&&!c.homologada?'<sup>*</sup>':''} ${inf.isO.has(c.id)?`<span class="tag" title="Mejor marca homologada">${ico('trophy',13)}PB</span>`:inf.isN.has(c.id)?'<span class="tag" title="Mejor marca sin homologar">PB*</span>':''}</td><td class="num">${s&&k?ritmo(s,k):''}</td><td class="num">${inf.pos[c.id]?`${inf.pos[c.id]}º de ${inf.tot[c.distancia]}`:''}</td><td class="num">${esc(c.posicion)}</td><td class="num">${esc(c.posCat)}</td><td class="num">${esc(c.fc)}</td><td class="mut sm" style="max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(c.notas)}</td></tr>`}).join('')}</tbody></table></div><p class="xs mut" style="margin-top:10px">${L.length} carrera${L.length>1?'s':''} · * = sin homologar</p>`}
 ACT.csort=b=>{const k=b.dataset.k;U.car.d=U.car.k===k?-U.car.d:(k==='fecha'?-1:1);U.car.k=k;refresh()};
 ACT.cvista=b=>{const v=b.dataset.v;Object.assign(U.car,v==='rec'?{k:'fecha',d:-1}:v==='rank'?{k:'marca',d:1}:{k:'fecha',d:1});refresh()};
@@ -575,18 +583,18 @@ function ctlGraficos(){const n=U.ctl.rango,days=Array.from({length:n},(_,i)=>add
  const num=v=>v===''||v==null?null:+v;const media=k=>{const a=avg(days.map(d=>(ctlGet(iso(d))||{})[k]));return a!=null?`media ${fmtN(a)}`:''};
  const card=(t,sub,svg)=>`<div class="card chart"><h3>${t}<span class="sp"></span><span class="xs mut" style="font-weight:400">${sub}</span></h3>${svg}</div>`;
  return `<div class="tools">${seg([['7','7 días'],['14','14 días'],['30','30 días'],['90','90 días']],String(n),'crango')}</div><div class="charts">
- ${card('Sueño y siesta',media('sueno')+' h · línea = 8 h',chart({data:S1(e=>[num(e.sueno),num(e.siesta)]),kind:'bars',cols:[P('Azure'),P('Lavender')],ref:8}))}
+ ${card('Sueño y siesta',media('sueno')+' h · línea = 8 h',chart({data:S1(e=>[num(e.sueno),num(e.siesta)]),kind:'bars',cols:[P('Cielo'),P('Lila')],ref:8}))}
  ${card('Fatiga',media('fatiga'),chart({data:S1(e=>[num(e.fatiga)]),kind:'line',cols:[S.aj.acento],min:0,max:5}))}
- ${card('Horas de estudio',media('estudio'),chart({data:S1(e=>[num(e.estudio)]),kind:'bars',cols:[P('Jade')]}))}
- ${card('FC en reposo',media('fc'),chart({data:S1(e=>[num(e.fc)]),kind:'line',cols:[P('Mango')],fmt:v=>Math.round(v)}))}
- ${card('Peso',media('peso'),chart({data:S1(e=>[num(e.peso)]),kind:'line',cols:[P('Camellia')]}))}</div>`}
+ ${card('Horas de estudio',media('estudio'),chart({data:S1(e=>[num(e.estudio)]),kind:'bars',cols:[P('Turquesa')]}))}
+ ${card('FC en reposo',media('fc'),chart({data:S1(e=>[num(e.fc)]),kind:'line',cols:[P('Amarillo')],fmt:v=>Math.round(v)}))}
+ ${card('Peso',media('peso'),chart({data:S1(e=>[num(e.peso)]),kind:'line',cols:[P('Rosa')]}))}</div>`}
 VIEWS.control=()=>R.tab==='graficos'?ctlGraficos():ctlRegistro();
 
 /* ============ MOCHILAS ============ */
 U.mAdd={tipo:'Imprescindible'};
 const MK=()=>R.tab==='clase'?'clase':'carreras';
 const mM=()=>S.mochilas[MK()];
-function mRow(x,lock){const o=opt('mochila',x.tipo)||{c:'Iron'},col=P(o.c);
+function mRow(x,lock){const o=opt('mochila',x.tipo)||{c:'Gris'},col=P(o.c);
  return `<div class="mrow${x.on?' on':''}${o.i?' it':''}" data-id="${x.id}" style="--c:${col}"><span class="bar1"></span>${lock?'':'<span class="grip" role="button" aria-label="Arrastrar para cambiar el orden"></span>'}<button class="chk${x.on?' on':''}" data-act="mchk" data-id="${x.id}" aria-label="${x.on?'Desmarcar':'Marcar'} ${esc(x.t)}">${ico('check',13)}</button>${lock?`<span class="txt">${esc(x.t)}</span>`:`<input class="txt" type="text" value="${esc(x.t)}" data-ch="mtxt" data-id="${x.id}" aria-label="Texto">`}<button class="tp" style="--c:${col};${lock?'cursor:default':''}" data-act="mtipo" data-id="${x.id}" ${lock?'disabled':'title="Cambiar tipo"'}>${esc(x.tipo)}</button>${lock?'':`<button class="ib" data-act="mdel" data-id="${x.id}" aria-label="Eliminar ${esc(x.t)}">${ico('trash',16)}</button>`}</div>`}
 const mFind=id=>mM().items.find(x=>x.id===id);
 ACT.mchk=b=>{const x=mFind(b.dataset.id);if(x){x.on=!x.on;save();refresh()}};
@@ -628,7 +636,7 @@ function syncPush(){if(!SY.on||!SY.ws||SY.role==='viewer')return;SY.dirty=true;s
  SY._t=setTimeout(()=>{SY.dirty=false;Sync.push(S).then(()=>syEstado(navigator.onLine?'ok':'off')).catch(e=>{syEstado('off');toast('No se pudo sincronizar: '+e.message)});if(!navigator.onLine)syEstado('off')},900)}
 window.addEventListener('online',()=>SY.on&&syEstado('ok'));window.addEventListener('offline',()=>SY.on&&syEstado('off'));
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();SY.inst=e;if(R.sec==='ajustes')refresh()});
-function syAplicar(obj){S=normalizar(obj);try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}aplicarTema();draw()}
+function syAplicar(obj){S=normalizar(obj);if(window.__migrado){window.__migrado=false;setTimeout(save,50)}try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}aplicarTema();draw()}
 const syOcupado=()=>!!($('.scrim')||/INPUT|TEXTAREA|SELECT/.test((document.activeElement||{}).tagName||'')||paint||dg);
 function syRemoto(obj,m){
  if(!m.exists){if(SY.ws&&SY.ws.id===SY.user.uid){Sync.create(S).then(()=>{SY.ready=true;ruta()}).catch(()=>{const otros=SY.spaces.filter(x=>x.id!==SY.user.uid);if(otros.length){syAbrir(otros[0])}else pantalla('Sin acceso','Esta cuenta ('+esc(SY.user.email)+') no tiene permiso para usar esta app.','<button class="btn" data-act="ssalir">Cerrar sesión</button>')})}else{toast('Ese espacio ya no está disponible');syAbrir(SY.spaces[0])}return}
@@ -713,7 +721,7 @@ function csvEsc(v){v=v==null?'':String(v);return /[",\n;]/.test(v)?'"'+v.replace
 function bajar(nombre,txt,tipo){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:(tipo||'text/plain')+';charset=utf-8'}));a.download=nombre;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
 ACT.expcsv=b=>{const k=b.dataset.t,[nom,cols]=TABLAS[k];bajar(`${k}.csv`,'\uFEFF'+[cols.map(c=>csvEsc(c[1])).join(','),...S[k].map(r=>cols.map(c=>csvEsc(c[0]==='homologada'||c[0]==='hecho'?(r[c[0]]?'Yes':'No'):r[c[0]])).join(','))].join('\n'),'text/csv')};
 ACT.expjson=()=>bajar(`juanhq-copia-${iso(hoy())}.json`,JSON.stringify(S,null,1),'application/json');
-INP.impjson=el=>{const f=el.files[0];if(!f)return;f.text().then(t=>{el.value='';try{const r=JSON.parse(t);if(!r||!r.opc)throw new Error('No parece una copia de la app');if(!confirm('Esto reemplaza todos tus datos actuales. ¿Continuar?'))return;S={...DEF(),...r};save();aplicarTema();draw();toast('Copia restaurada')}catch(e){toast('No se pudo leer: '+e.message)}})};
+INP.impjson=el=>{const f=el.files[0];if(!f)return;f.text().then(t=>{el.value='';try{const r=JSON.parse(t);if(!r||!r.opc)throw new Error('No parece una copia de la app');if(!confirm('Esto reemplaza todos tus datos actuales. ¿Continuar?'))return;S=normalizar(r);save();aplicarTema();draw();toast('Copia restaurada')}catch(e){toast('No se pudo leer: '+e.message)}})};
 function parseCSV(t){t=t.replace(/^\uFEFF/,'');const first=t.split(/\r?\n/)[0]||'',dl=(first.match(/;/g)||[]).length>(first.match(/,/g)||[]).length?';':',';const rows=[];let r=[],c='',q=false;
  for(let i=0;i<t.length;i++){const ch=t[i];if(q){if(ch==='"'){if(t[i+1]==='"'){c+='"';i++}else q=false}else c+=ch}else if(ch==='"')q=true;else if(ch===dl){r.push(c);c=''}else if(ch==='\n'||ch==='\r'){if(ch==='\r'&&t[i+1]==='\n')i++;r.push(c);c='';if(r.length>1||r[0]!=='')rows.push(r);r=[]}else c+=ch}
  if(c!==''||r.length){r.push(c);rows.push(r)}return rows}
@@ -753,6 +761,7 @@ VIEWS.ajustes=ajustesUI;
 
 /* ============ ARRANQUE ============ */
 aplicarTema();matchMedia('(prefers-color-scheme:light)').addEventListener&&matchMedia('(prefers-color-scheme:light)').addEventListener('change',()=>{if(S.aj.tema==='auto')aplicarTema()});
+if(window.__migrado){window.__migrado=false;save()}
 window.addEventListener('hashchange',()=>{if(!SY.on||SY.ready)ruta()});syBoot();
 setInterval(()=>{if(R.sec==='inicio'&&!$('.scrim')&&!$('.pop'))refresh()},60000);
 
